@@ -117,3 +117,35 @@ margin-left: 20px;
 h1 {
   font-size: 80px;
 }
+
+
+/*Buttons*/
+
+.button-add-reduce{
+  margin-left: 10px;
+  outline: 0;
+  grid-gap: 2px;
+  align-items: center;
+  background: 0 0;
+  border: 1px solid #000;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 16px;
+  gap: 1px;
+  justify-content: center;
+  line-height: 1.5;
+  overflow: hidden;
+  padding: 0px 5px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  transition: all .14s ease-out;
+  white-space: nowrap;
+}
+
+  .button-add-reduce:focus-visible{
+      outline-offset: 1px;
+  }
+
+

@@ -49,6 +49,38 @@ function App() {
       }
   }
 
+  const removeFromCart = (product) => {
+
+    console.log("REMOVING FROM CART");
+    const existingItemIndex = cartList.findIndex(item => item.id === product.id);
+    const updatedCart = [...cartList];
+    updatedCart.splice(existingItemIndex, 1);
+
+    setCart(updatedCart);
+
+  }
+
+  const reduceQuantity = (product) => {
+
+    console.log("REDUCING QUANTITY");
+    const existingItemIndex = cartList.findIndex(item => item.id === product.id);
+    const updatedCart = [...cartList];
+    updatedCart[existingItemIndex].quantity -= 1; 
+    if(updatedCart[existingItemIndex].quantity <= 0){
+      updatedCart.splice(existingItemIndex, 1);
+    }
+    setCart(updatedCart);
+  }
+
+  const addQuantity = (product) => {
+
+    console.log("ADDING QUANTITY");
+    const existingItemIndex = cartList.findIndex(item => item.id === product.id);
+    const updatedCart = [...cartList];
+    updatedCart[existingItemIndex].quantity += 1; 
+    setCart(updatedCart);
+  }
+
   const updatePrice = () => {
     let newTotalPrice = 0;
     for(let i = 0; i < cartList.length; i++)
@@ -89,6 +121,9 @@ function App() {
           price={item.price}
           quantity={item.quantity}
           discount={item.discount}
+          removeFromCartFunction={() => removeFromCart(item)}
+          addQuantityFunction={() => addQuantity(item)}
+          reduceQuantityFunction={() => reduceQuantity(item)}
           />
         ))}
         <h2>A PAGAR: {totalPrice.toFixed(2)}€</h2>

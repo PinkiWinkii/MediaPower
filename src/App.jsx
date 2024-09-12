@@ -27,12 +27,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let newTotalPrice = 0;
-    for(let i = 0; i < cartList.length; i++)
-    {
-      newTotalPrice +=  (cartList[i].price * ((100 - cartList[i].discount)/100).toFixed(2))*cartList[i].quantity;
-    }
-    setTotalPrice(newTotalPrice);
+    let newPrice = updatePrice();
+    setTotalPrice(newPrice);
   }, [cartList]);
 
   const addToCart = (product) => {
@@ -51,6 +47,15 @@ function App() {
         setCart((prevCart) => [...prevCart, {...product, quantity:1}]);
         console.log("ITEM NOT EXISTING");
       }
+  }
+
+  const updatePrice = () => {
+    let newTotalPrice = 0;
+    for(let i = 0; i < cartList.length; i++)
+    {
+      newTotalPrice +=  (cartList[i].price * ((100 - cartList[i].discount)/100).toFixed(2))*cartList[i].quantity;
+    }
+    return newTotalPrice;
   }
 
 

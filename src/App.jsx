@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { ConfirmDialog } from 'primereact/confirmdialog'; // To use <ConfirmDialog> tag
+import { confirmDialog } from 'primereact/confirmdialog'; // To use confirmDialog method
 import Product from './Product'; 
 import CartItem from './CartItem';
 import './App.css';
@@ -17,6 +19,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cartList, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     setProducts(productList);
@@ -50,15 +53,14 @@ function App() {
   }
 
   const removeFromCart = (product) => {
-
     console.log("REMOVING FROM CART");
     const existingItemIndex = cartList.findIndex(item => item.id === product.id);
     const updatedCart = [...cartList];
     updatedCart.splice(existingItemIndex, 1);
-
     setCart(updatedCart);
-
   }
+
+
 
   const reduceQuantity = (product) => {
 
@@ -77,7 +79,11 @@ function App() {
     console.log("ADDING QUANTITY");
     const existingItemIndex = cartList.findIndex(item => item.id === product.id);
     const updatedCart = [...cartList];
-    updatedCart[existingItemIndex].quantity += 1; 
+    if(updatedCart[existingItemIndex].quantity < updatedCart[existingItemIndex].stock)
+    {
+      updatedCart[existingItemIndex].quantity += 1; 
+    }
+
     setCart(updatedCart);
   }
 
@@ -121,6 +127,7 @@ function App() {
           price={item.price}
           quantity={item.quantity}
           discount={item.discount}
+          stock={item.stock}
           removeFromCartFunction={() => removeFromCart(item)}
           addQuantityFunction={() => addQuantity(item)}
           reduceQuantityFunction={() => reduceQuantity(item)}
